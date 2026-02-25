@@ -1,0 +1,498 @@
+html, body {
+  margin: 0;
+  padding: 0;
+  background-color: #f8efea;
+  min-height: 100vh;
+}
+
+.container {
+  max-width: 800px;
+  margin: auto;
+  padding: 20px;
+}
+
+h2 {
+  text-align: center;
+  font-family: serif;
+  font-size: 50px;
+  font-style: italic;
+}
+
+.task-form {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.task-form input {
+  flex: 1 1 200px;
+  padding: 8px;
+}
+
+.task-form button {
+  padding: 8px 16px;
+}
+
+.task-list {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 15px;
+}
+
+.task-card {
+  border: 1px solid #ddd;
+  padding: 15px;
+  border-radius: 8px;
+  transition: 0.3s;
+}
+
+.task-card.completed {
+  background-color: #e0ffe0;
+  text-decoration: line-through;
+}
+
+.actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+/* Responsive Layout */
+@media (min-width: 600px) {
+  .task-list {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (min-width: 900px) {
+  .task-list {
+    grid-template-columns: 1fr 1fr 1fr;
+  }
+}
+
+/* Input Group */
+.inputGroup {
+  font-family: 'Segoe UI', sans-serif;
+  margin: 1.5em 0;
+  display: flex;
+  flex-direction: row;
+  gap: 15px;  
+  align-items: center;
+  max-width: 100%;
+  width: 100%;       
+  flex-wrap: nowrap;
+}
+
+/* Container for each individual pair */
+.input-box {
+  position: relative;
+  flex: 1;
+  min-width: 0;
+}
+
+/* Update these selectors to use .input-box */
+.input-box :is(input:focus, input:valid) ~ label {
+  transform: translateY(-50%) scale(.9);
+  margin: 0;
+  margin-left: 1.3em;
+  padding: 0 0.4em;
+  background-color: #ffffff; 
+  color: rgb(150, 150, 200);
+  z-index: 10;
+}
+
+.input-box :is(input:focus, input:valid) {
+  border-color: rgb(150, 150, 200);
+}
+
+.input-box input {
+  font-size: 100%;
+  padding: 0.8em;
+  outline: none;
+  border: 2px solid rgb(200, 200, 200);
+  background-color: transparent;
+  border-radius: 20px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.input-box label {
+  font-size: 100%;
+  position: absolute;
+  left: 0;
+  top: 0;
+  padding: 0.8em;
+  margin-left: 0.5em;
+  pointer-events: none;
+  transition: all 0.3s ease;
+  color: rgb(100, 100, 100);
+}
+
+/* Floating Label Logic */
+.input-box :is(input:focus, input:valid) ~ label {
+  transform: translateY(-50%) scale(.9);
+  margin: 0;
+  margin-left: 1.3em;
+  padding: 0 0.4em;
+  background-color: #f8efea; /* To match your background color */
+  color: rgb(150, 150, 200);
+}
+
+.input-box :is(input:focus, input:valid) {
+  border-color: rgb(150, 150, 200);
+}
+
+/* Submit Button (Add/Update) Design */
+.submit-button {
+  width: 150px;
+  height: 40px;
+  border-radius: 50px;
+  background-color: rgb(20, 20, 20);
+  border: none;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.164);
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.2s;
+  color: white;
+  position: relative;
+  overflow: hidden;
+}
+
+.button-text {
+  font-size: 13px;
+  z-index: 2;
+}
+
+.icon-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.submit-button svg {
+  width: 17px;
+  height: 17px;
+  transition: transform 0.5s ease;
+}
+
+/* Ensure icons are white */
+.submit-button svg path {
+  stroke: white;
+  fill: white;
+}
+
+/* Specific fix for the 'Add' icon which uses stroke */
+.icon-add path {
+  stroke: white !important;
+}
+
+/* Hover Effects - Color Change */
+.submit-button:hover {
+  background-color: #6200ea; /* Purple for Add */
+}
+
+.submit-button.editing:hover {
+  background-color: #ff9100; /* Orange for Update */
+}
+
+/* Spin Animation on Hover */
+.submit-button:hover svg {
+  transform: rotate(360deg);
+}
+
+/* Default: Show Add, Hide Update */
+.icon-add {
+  display: inline-block;
+}
+
+.icon-update {
+  display: none;
+}
+
+/* Editing State: Hide Add, Show Update */
+.submit-button.editing .icon-add {
+  display: none;
+}
+
+.submit-button.editing .icon-update {
+  display: inline-block;
+}
+
+/* Fillters */
+.tab-container {
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  padding: 2px;
+  background-color: #dadadb;
+  border-radius: 9px;
+  width: fit-content;
+  margin: 20px auto;
+}
+
+.tab-btn {
+  width: 130px;
+  height: 30px;
+  position: relative;
+  z-index: 999; 
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 0;
+  background: transparent;
+  font-size: 0.75rem;
+  font-weight: 600;
+  opacity: 0.6;
+  cursor: pointer;
+  transition: opacity 0.2s ease;
+}
+
+.tab-btn.active {
+  opacity: 1;
+}
+
+.indicator {
+  content: "";
+  width: 130px;
+  height: 28px;
+  background: #ffffff;
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  z-index: 9;
+  border: 0.5px solid rgba(0, 0, 0, 0.04);
+  box-shadow: 0px 3px 8px rgba(0, 0, 0, 0.12), 0px 3px 1px rgba(0, 0, 0, 0.04);
+  border-radius: 7px;
+  transition: all 0.2s ease-out;
+}
+
+.tab-btn:nth-child(1).active ~ .indicator {
+  left: 2px;
+}
+
+.tab-btn:nth-child(2).active ~ .indicator {
+  left: calc(130px + 2px);
+}
+
+.tab-btn:nth-child(3).active ~ .indicator {
+  left: calc(130px * 2);
+}
+
+/* Delete Button Design */ 
+.delete-button {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: rgb(20, 20, 20);
+  border: none;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.164);
+  cursor: pointer;
+  transition-duration: 0.3s;
+  overflow: hidden;
+  position: relative;
+}
+
+.delete-svgIcon {
+  width: 15px;
+  transition-duration: 0.3s;
+}
+
+.delete-svgIcon path {
+  fill: white;
+}
+
+.delete-button:hover {
+  width: 90px;
+  border-radius: 50px;
+  transition-duration: 0.3s;
+  background-color: rgb(255, 69, 69);
+  align-items: center;
+}
+
+.delete-button:hover .delete-svgIcon {
+  width: 20px;
+  transition-duration: 0.3s;
+  transform: translateY(60%);
+  -webkit-transform: rotate(360deg);
+  -moz-transform: rotate(360deg);
+  -o-transform: rotate(360deg);
+  -ms-transform: rotate(360deg);
+  transform: rotate(360deg);
+}
+
+.delete-button::before {
+  display: none;
+  content: "Delete";
+  color: white;
+  transition-duration: 0.3s;
+  font-size: 2px;
+}
+
+.delete-button:hover::before {
+  display: block;
+  padding-right: 10px;
+  font-size: 13px;
+  opacity: 1;
+  transform: translateY(0px);
+  transition-duration: 0.3s;
+}
+
+/* Edit Button Design */ 
+.edit-button {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: rgb(20, 20, 20);
+  border: none;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.164);
+  cursor: pointer;
+  transition-duration: 0.3s;
+  overflow: hidden;
+  position: relative;
+  text-decoration: none !important;
+}
+
+.edit-svgIcon {
+  width: 17px;
+  transition-duration: 0.3s;
+}
+
+.edit-svgIcon path {
+  fill: white;
+}
+
+.edit-button:hover {
+  width: 120px;
+  border-radius: 50px;
+  transition-duration: 0.3s;
+  background-color: rgb(255, 174, 69);
+  align-items: center;
+}
+
+.edit-button:hover .edit-svgIcon {
+  width: 20px;
+  transition-duration: 0.3s;
+  transform: translateY(60%);
+  -webkit-transform: rotate(360deg);
+  -moz-transform: rotate(360deg);
+  -o-transform: rotate(360deg);
+  -ms-transform: rotate(360deg);
+  transform: rotate(360deg);
+}
+
+.edit-button::before {
+  display: none;
+  content: "Edit";
+  color: white;
+  transition-duration: 0.3s;
+  font-size: 2px;
+}
+
+.edit-button:hover::before {
+  display: block;
+  padding-right: 10px;
+  font-size: 13px;
+  opacity: 1;
+  transform: translateY(0px);
+  transition-duration: 0.3s;
+}
+
+/* Complete & Undo Buttons Design */
+.compAndUndo-button {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: rgb(20, 20, 20);
+  border: none;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.164);
+  cursor: pointer;
+  transition-duration: 0.3s;
+  overflow: hidden;
+  position: relative;
+}
+
+.compAndUndo-button svg {
+  width: 17px;
+  height: 17px;
+  transition-duration: 0.3s;
+}
+
+.compAndUndo-button svg path {
+  fill: white;
+}
+
+/* Hover expansion */
+.compAndUndo-button:hover {
+  width: 125px;
+  border-radius: 50px;
+  background-color: #4caf50;
+}
+
+/* Change color to blue/gray when in "Undo" mode on hover */
+.task-card.completed .compAndUndo-button:hover {
+  background-color: #2196f3; 
+}
+
+/* Icon animation on hover */
+.compAndUndo-button:hover svg {
+  transform: translateY(5%) rotate(360deg);
+}
+
+/* Base text label (Hidden) */
+.compAndUndo-button::before {
+  display: none;
+  color: white;
+  transition-duration: 0.3s;
+  font-size: 2px;
+}
+
+/* Dynamic Content: "Complete" vs "Undo" */
+.compAndUndo-button::before {
+  content: "Complete";
+}
+
+.task-card.completed .compAndUndo-button::before {
+  content: "Undo";
+}
+
+/* Show text on hover */
+.compAndUndo-button:hover::before {
+  display: block;
+  padding-right: 10px;
+  font-size: 13px;
+  opacity: 1;
+  transform: translateY(0px);
+}
+
+.icon-undo {
+  display: none;
+}
+
+.icon-complete {
+  display: inline-block;
+}
+
+.task-card.completed .icon-complete {
+  display: none;
+}
+
+.task-card.completed .icon-undo {
+  display: inline-block;
+}
