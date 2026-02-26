@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core'; // Added OnInit
 import { TaskService } from '../../services/task.service';
 import { Task } from '../../interface/task';
 import { FormsModule } from '@angular/forms';
@@ -11,7 +11,7 @@ import { CommonModule } from '@angular/common';
   templateUrl: './task-dashboard.component.html',
   styleUrls: ['./task-dashboard.component.css']
 })
-export class TaskDashboardComponent {
+export class TaskDashboardComponent implements OnInit {
 
   tasks: Task[] = [];
   filter: string = 'all';
@@ -25,23 +25,37 @@ export class TaskDashboardComponent {
   editMode: boolean = false;
   editingTaskId: number | null = null;
 
-  constructor(private taskService: TaskService) {
-    this.tasks = this.taskService.getTasks();
+  constructor(private taskService: TaskService) {}
+
+  // Triggered when the component loads
+  ngOnInit() {
+    this.loadTasks();
+  }
+
+  // Helper to refresh the list from the database
+  loadTasks() {
+    this.taskService.getTasks().subscribe((tasks) => {
+      this.tasks = tasks;
+    });
   }
 
   addOrUpdateTask() {
     if (this.editMode && this.editingTaskId !== null) {
+      // Update existing task in DB
       this.taskService.updateTask({
         id: this.editingTaskId,
         ...this.newTask
+      } as Task).subscribe(() => {
+        this.loadTasks(); // Refresh list after update
+        this.resetEditState();
       });
-      this.editMode = false;
-      this.editingTaskId = null;
     } else {
-      this.taskService.addTask(this.newTask);
+      // Add new task to DB
+      this.taskService.addTask(this.newTask).subscribe(() => {
+        this.loadTasks(); // Refresh list after adding
+        this.resetForm();
+      });
     }
-    this.tasks = this.taskService.getTasks();
-    this.resetForm();
   }
 
   editTask(task: Task) {
@@ -51,14 +65,15 @@ export class TaskDashboardComponent {
   }
 
   deleteTask(id: number) {
-    this.taskService.deleteTask(id);
-    this.tasks = this.taskService.getTasks();
+    this.taskService.deleteTask(id).subscribe(() => {
+      this.loadTasks(); // Refresh list after deletion
+    });
   }
 
   toggleComplete(task: Task) {
-    this.taskService.updateTask({
-      ...task,
-      completed: !task.completed
+    const updatedTask = { ...task, completed: !task.completed };
+    this.taskService.updateTask(updatedTask).subscribe(() => {
+      this.loadTasks(); // Refresh list after toggle
     });
   }
 
@@ -78,5 +93,11 @@ export class TaskDashboardComponent {
 
   resetForm() {
     this.newTask = { title: '', description: '', completed: false };
+  }
+
+  resetEditState() {
+    this.editMode = false;
+    this.editingTaskId = null;
+    this.resetForm();
   }
 }
