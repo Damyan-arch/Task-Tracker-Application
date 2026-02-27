@@ -24,6 +24,11 @@
         <label for="description">Description</label>
       </div>
 
+      <div class="input-box">
+        <input type="date" [(ngModel)]="newTask.dueDate" name="dueDate" />
+        <label for="dueDate">Due Date</label>
+      </div>
+
       <!-- Submit Button -->
       <button type="submit" class="submit-button" [class.editing]="editMode">
         <span class="button-text">{{
@@ -98,9 +103,15 @@
       *ngFor="let task of filteredTasks"
       class="task-card"
       [class.completed]="task.completed"
+      [class.overdue]="isOverdue(task)"
     >
       <h3>{{ task.title }}</h3>
       <p>{{ task.description }}</p>
+
+      <p *ngIf="task.dueDate" class="due-date" style="font-size: 0.9em; color: #555;">
+        📅 <strong>Due:</strong> {{ task.dueDate | date:'mediumDate' }}
+        <span *ngIf="isOverdue(task)" class="late-badge"> (Overdue)</span>
+      </p>
 
       <div class="actions">
         <!-- Complete & Undo Buttons -->

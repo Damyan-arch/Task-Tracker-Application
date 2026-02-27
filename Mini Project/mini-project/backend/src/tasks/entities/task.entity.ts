@@ -15,6 +15,9 @@ export class Task {
   @Column({ default: false })
   completed: boolean;
 
+  @Column({ nullable: true })
+  dueDate: Date;
+
   @ManyToOne(() => User, (user) => user.tasks, { eager: false })
   user: User;
 }

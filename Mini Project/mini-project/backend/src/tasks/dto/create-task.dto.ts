@@ -1,10 +1,14 @@
-import { IsNotEmpty, IsString } from 'class-validator';
+import { IsDateString, IsNotEmpty, IsOptional, IsString } from 'class-validator';
 export class CreateTaskDto {
   @IsNotEmpty()
   @IsString()
-  title: string; //
+  title: string;
 
   @IsNotEmpty()
   @IsString()
-  description: string; //
+  description: string;
+
+  @IsOptional()
+  @IsDateString()
+  dueDate?: string;
 }
