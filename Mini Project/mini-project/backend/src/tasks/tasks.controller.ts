@@ -37,4 +37,12 @@ export class TasksController {
   deleteTask(@Param('id', ParseIntPipe) id: number): Promise<void> {
     return this.tasksService.deleteTask(id);
   }
+
+  @Patch('reorder')
+  reorderTasks(
+    @Body('taskIds') taskIds: number[],
+    @GetUser() user: User
+  ): Promise<void> {
+    return this.tasksService.reorderTasks(taskIds, user);
+  }
 }

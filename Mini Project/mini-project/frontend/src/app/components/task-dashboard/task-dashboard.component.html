@@ -1,9 +1,7 @@
 <div class="container">
   <div class="header-section">
     <h2>Task Dashboard</h2>
-    <button class="logout-btn" (click)="onLogout()">
-      Logout
-    </button>
+    <button class="logout-btn" (click)="onLogout()">Logout</button>
   </div>
 
   <!-- Task Form -->
@@ -98,18 +96,30 @@
   </div>
 
   <!-- Task List -->
-  <div class="task-list">
+  <div class="task-list" cdkDropList (cdkDropListDropped)="drop($event)">
     <div
       *ngFor="let task of filteredTasks"
       class="task-card"
       [class.completed]="task.completed"
       [class.overdue]="isOverdue(task)"
+      cdkDrag
     >
+      <div
+        class="drag-handle"
+        cdkDragHandle
+        style="cursor: grab; color: #ccc; margin-bottom: 5px"
+      >
+        ⠿ Drag to reorder
+      </div>
       <h3>{{ task.title }}</h3>
       <p>{{ task.description }}</p>
 
-      <p *ngIf="task.dueDate" class="due-date" style="font-size: 0.9em; color: #555;">
-        📅 <strong>Due:</strong> {{ task.dueDate | date:'mediumDate' }}
+      <p
+        *ngIf="task.dueDate"
+        class="due-date"
+        style="font-size: 0.9em; color: #555"
+      >
+        📅 <strong>Due:</strong> {{ task.dueDate | date: "mediumDate" }}
         <span *ngIf="isOverdue(task)" class="late-badge"> (Overdue)</span>
       </p>
 

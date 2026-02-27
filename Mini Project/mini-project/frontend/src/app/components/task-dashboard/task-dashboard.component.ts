@@ -5,16 +5,20 @@ import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { AuthService } from '../../services/auth.service';
 import { Router } from '@angular/router';
+import {
+  DragDropModule,
+  CdkDragDrop,
+  moveItemInArray,
+} from '@angular/cdk/drag-drop';
 
 @Component({
   selector: 'app-task-dashboard',
   standalone: true,
-  imports: [FormsModule, CommonModule],
+  imports: [FormsModule, CommonModule, DragDropModule],
   templateUrl: './task-dashboard.component.html',
-  styleUrls: ['./task-dashboard.component.css']
+  styleUrls: ['./task-dashboard.component.css'],
 })
 export class TaskDashboardComponent implements OnInit {
-
   tasks: Task[] = [];
   filter: string = 'all';
 
@@ -22,7 +26,7 @@ export class TaskDashboardComponent implements OnInit {
     title: '',
     description: '',
     completed: false,
-    dueDate: ''
+    dueDate: '',
   };
 
   editMode: boolean = false;
@@ -31,7 +35,7 @@ export class TaskDashboardComponent implements OnInit {
   constructor(
     private taskService: TaskService,
     private authService: AuthService,
-    private router: Router
+    private router: Router,
   ) {}
 
   // Triggered when the component loads
@@ -49,13 +53,15 @@ export class TaskDashboardComponent implements OnInit {
   addOrUpdateTask() {
     if (this.editMode && this.editingTaskId !== null) {
       // Update existing task in DB
-      this.taskService.updateTask({
-        id: this.editingTaskId,
-        ...this.newTask
-      } as Task).subscribe(() => {
-        this.loadTasks(); // Refresh list after update
-        this.resetEditState();
-      });
+      this.taskService
+        .updateTask({
+          id: this.editingTaskId,
+          ...this.newTask,
+        } as Task)
+        .subscribe(() => {
+          this.loadTasks(); // Refresh list after update
+          this.resetEditState();
+        });
     } else {
       // Add new task to DB
       this.taskService.addTask(this.newTask).subscribe(() => {
@@ -90,16 +96,21 @@ export class TaskDashboardComponent implements OnInit {
 
   get filteredTasks() {
     if (this.filter === 'completed') {
-      return this.tasks.filter(t => t.completed);
+      return this.tasks.filter((t) => t.completed);
     }
     if (this.filter === 'pending') {
-      return this.tasks.filter(t => !t.completed);
+      return this.tasks.filter((t) => !t.completed);
     }
     return this.tasks;
   }
 
   resetForm() {
-    this.newTask = { title: '', description: '', completed: false, dueDate: '' };
+    this.newTask = {
+      title: '',
+      description: '',
+      completed: false,
+      dueDate: '',
+    };
   }
 
   resetEditState() {
@@ -117,14 +128,28 @@ export class TaskDashboardComponent implements OnInit {
     if (!task.dueDate || task.completed) {
       return false; // No due date or already completed means it's not late
     }
-    
+
     const today = new Date();
     // Set today's time to midnight to ensure accurate day-to-day comparison
-    today.setHours(0, 0, 0, 0); 
-    
+    today.setHours(0, 0, 0, 0);
+
     const dueDate = new Date(task.dueDate);
     dueDate.setHours(0, 0, 0, 0);
 
     return dueDate < today;
+  }
+
+  drop(event: CdkDragDrop<Task[]>) {
+    // 1. Get the current visible list
+    const currentList = this.filteredTasks;
+
+    // 2. Move the item visually in the array
+    moveItemInArray(currentList, event.previousIndex, event.currentIndex);
+
+    // 3. Extract the IDs in their new order
+    const orderedIds = currentList.map((task) => task.id);
+
+    // 4. Send to backend to save
+    this.taskService.reorderTasks(orderedIds).subscribe();
   }
 }
