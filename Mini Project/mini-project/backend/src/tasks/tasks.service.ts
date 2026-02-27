@@ -15,7 +15,10 @@ export class TasksService {
 
   // Accept user to filter tasks specifically for the logged-in owner
   async getTasks(user: User): Promise<Task[]> {
-    return await this.taskRepository.find({ where: { user } });
+    return await this.taskRepository.find({
+      where: { user },
+      order: { position: 'ASC', id: 'ASC' },
+    });
   }
 
   // Assign the task to the user during creation
@@ -34,11 +37,11 @@ export class TasksService {
       id: id,
       ...updateTaskDto,
     });
-    
+
     if (!task) {
       throw new NotFoundException(`Task with ID "${id}" not found`);
     }
-    
+
     return await this.taskRepository.save(task);
   }
 
@@ -46,6 +49,22 @@ export class TasksService {
     const result = await this.taskRepository.delete(id);
     if (result.affected === 0) {
       throw new NotFoundException(`Task with ID "${id}" not found`);
+    }
+  }
+
+  async reorderTasks(taskIds: number[], user: User): Promise<void> {
+    // Loop through the array of IDs and update their order in the DB
+    for (let i = 0; i < taskIds.length; i++) {
+      await this.taskRepository.update(
+        { id: taskIds[i], user },
+        { position: i },
+      );
+    }
+  }
+
+  async updateTaskOrder(tasks: Task[]): Promise<void> {
+    for (let i = 0; i < tasks.length; i++) {
+      await this.taskRepository.update(tasks[i].id, { position: i });
     }
   }
 }

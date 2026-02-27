@@ -18,6 +18,9 @@ export class Task {
   @Column({ nullable: true })
   dueDate: Date;
 
+  @Column({ type: 'int', default: 0 })
+  position: number;
+
   @ManyToOne(() => User, (user) => user.tasks, { eager: false })
   user: User;
 }
