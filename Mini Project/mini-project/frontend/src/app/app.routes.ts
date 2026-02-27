@@ -1,8 +1,8 @@
 import { Router, Routes } from '@angular/router';
-import { LoginComponent } from './components/login/login.component';
 import { TaskDashboardComponent } from './components/task-dashboard/task-dashboard.component';
 import { inject } from '@angular/core';
 import { AuthService } from './services/auth.service';
+import { LoginComponent } from './components/user-functionality/login.component';
 
 export const routes: Routes = [
   { path: 'login', component: LoginComponent },

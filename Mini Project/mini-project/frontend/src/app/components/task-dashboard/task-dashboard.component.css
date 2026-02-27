@@ -4,6 +4,12 @@ html, body {
   background-color: #f8efea;
 }
 
+.container {
+  max-width: 1200px;
+  margin: auto;
+  padding: 20px;
+}
+
 .header-section {
   display: flex;
   justify-content: space-between;
@@ -11,7 +17,16 @@ html, body {
   margin-bottom: 20px;
 }
 
-/* Base Button Styling */
+h2 {
+  text-align: center;
+  font-family: serif;
+  font-size: 50px;
+  font-style: italic;
+}
+
+/* =========================================
+   LOGOUT BUTTON
+   ========================================= */
 .logout-btn {
   display: flex;
   align-items: center;
@@ -28,7 +43,6 @@ html, body {
   background-color: rgb(255, 65, 65);
 }
 
-/* The SVG Icon Container */
 .sign {
   width: 100%;
   transition-duration: .3s;
@@ -37,7 +51,6 @@ html, body {
   justify-content: center;
 }
 
-/* Ensure the SVG is exactly 17px */
 .sign svg {
   width: 17px;
 }
@@ -46,14 +59,13 @@ html, body {
   fill: white;
 }
 
-/* The Text ("Logout") */
 .text {
   position: absolute;
   right: 0%;
   width: 0%;
   opacity: 0;
   color: white;
-  font-size: 15px; /* Adjusted slightly so "Logout" fits perfectly */
+  font-size: 15px; 
   font-weight: 600;
   transition-duration: .3s;
   display: flex;
@@ -61,7 +73,6 @@ html, body {
   justify-content: flex-start;
 }
 
-/* --- HOVER EFFECTS --- */
 .logout-btn:hover {
   width: 125px;
   border-radius: 40px;
@@ -70,13 +81,11 @@ html, body {
   transition-duration: .3s;
 }
 
-/* Shifts the icon to the left on hover */
 .logout-btn:hover .sign {
   width: 45px;
   transition-duration: .3s;
 }
 
-/* Fades the text in on hover */
 .logout-btn:hover .text {
   opacity: 1;
   width: calc(100% - 45px);
@@ -85,147 +94,17 @@ html, body {
   padding-left: 5px;
 }
 
-/* Button click effect */
 .logout-btn:active {
   transform: translate(2px ,2px);
 }
 
-.container {
-  max-width: 1200px;
-  margin: auto;
-  padding: 20px;
-}
-
-h2 {
-  text-align: center;
-  font-family: serif;
-  font-size: 50px;
-  font-style: italic;
-}
-
+/* =========================================
+   FORM & INPUTS
+   ========================================= */
 .task-form {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
   margin-bottom: 20px;
 }
 
-.task-form input {
-  flex: 1 1 200px;
-  padding: 8px;
-}
-
-.task-form button {
-  padding: 8px 16px;
-}
-
-.task-list {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 15px;
-  min-height: 100px;
-}
-
-/* Drag and Drop CDK Styles */
-.cdk-drag-placeholder {
-  opacity: 0.3;
-  background: #ccc;
-  border: 2px dashed #999;
-  min-height: 100px;
-  margin-bottom: 10px;
-  border-radius: 8px;
-}
-
-/* The card currently being moved by the mouse */
-.cdk-drag-preview {
-  box-shadow: 0 10px 20px rgba(0,0,0,0.2) !important;
-  cursor: grabbing;
-}
-
-/* Smooth animation when other items move out of the way */
-.cdk-drop-list-dragging .cdk-drag {
-  transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
-}
-
-.drag-handle {
-  cursor: grab;
-  color: #ccc;
-  font-size: 20px;
-  padding-right: 10px;
-  user-select: none;
-}
-
-/* Overdue Task Card Styling */
-.task-card.overdue {
-  border: 2px solid #ff4545; /* Red border */
-  background-color: #fff5f5; /* Very light red background */
-  box-shadow: 0px 4px 12px rgba(255, 69, 69, 0.15); /* Slight red glow */
-}
-
-/* Make the title red to emphasize urgency */
-.task-card.overdue h3 {
-  color: #d32f2f;
-}
-
-/* The small overdue text badge */
-.late-badge {
-  color: #ff4545;
-  font-weight: 800;
-  font-size: 0.95em;
-  margin-left: 5px;
-  animation: pulse 2s infinite; /* Optional: adds a gentle pulsing effect */
-}
-
-/* Optional: Gentle pulse animation to grab attention */
-@keyframes pulse {
-  0% { opacity: 1; }
-  50% { opacity: 0.6; }
-  100% { opacity: 1; }
-}
-
-/* Ensure the completed styling completely overrides the overdue styling */
-.task-card.completed {
-  background-color: #e0ffe0;
-  border: 1px solid #ddd;
-  text-decoration: line-through;
-  box-shadow: none;
-}
-.task-card.completed h3 {
-  color: inherit;
-}
-
-.task-card {
-  border: 1px solid #ddd;
-  padding: 15px;
-  border-radius: 8px;
-  transition: 0.3s;
-}
-
-.task-card.completed {
-  background-color: #e0ffe0;
-  text-decoration: line-through;
-}
-
-.actions {
-  display: flex;
-  gap: 10px;
-  margin-top: 10px;
-}
-
-/* Responsive Layout */
-@media (min-width: 600px) {
-  .task-list {
-    grid-template-columns: 1fr 1fr;
-  }
-}
-
-@media (min-width: 900px) {
-  .task-list {
-    grid-template-columns: 1fr 1fr 1fr;
-  }
-}
-
-/* Input Group */
 .inputGroup {
   font-family: 'Segoe UI', sans-serif;
   margin: 1.5em 0;
@@ -238,26 +117,10 @@ h2 {
   flex-wrap: wrap;
 }
 
-/* Container for each individual pair */
 .input-box {
   position: relative;
   flex: 1;
   min-width: 0;
-}
-
-/* Update these selectors to use .input-box */
-.input-box :is(input:focus, input:valid) ~ label {
-  transform: translateY(-50%) scale(.9);
-  margin: 0;
-  margin-left: 1.3em;
-  padding: 0 0.4em;
-  background-color: #ffffff; 
-  color: rgb(150, 150, 200);
-  z-index: 10;
-}
-
-.input-box :is(input:focus, input:valid) {
-  border-color: rgb(150, 150, 200);
 }
 
 .input-box input {
@@ -289,15 +152,18 @@ h2 {
   margin: 0;
   margin-left: 1.3em;
   padding: 0 0.4em;
-  background-color: #f8efea; /* To match your background color */
+  background-color: #f8efea; 
   color: rgb(150, 150, 200);
+  z-index: 10;
 }
 
 .input-box :is(input:focus, input:valid) {
   border-color: rgb(150, 150, 200);
 }
 
-/* Submit Button (Add/Update) Design */
+/* =========================================
+   SUBMIT BUTTON (ADD / UPDATE)
+   ========================================= */
 .submit-button {
   width: 150px;
   height: 40px;
@@ -334,50 +200,27 @@ h2 {
   transition: transform 0.5s ease;
 }
 
-/* Ensure icons are white */
 .submit-button svg path {
   stroke: white;
   fill: white;
 }
 
-/* Specific fix for the 'Add' icon which uses stroke */
 .icon-add path {
   stroke: white !important;
 }
 
-/* Hover Effects - Color Change */
-.submit-button:hover {
-  background-color: #6200ea; /* Purple for Add */
-}
+.submit-button:hover { background-color: #6200ea; }
+.submit-button.editing:hover { background-color: #ff9100; }
+.submit-button:hover svg { transform: rotate(360deg); }
 
-.submit-button.editing:hover {
-  background-color: #ff9100; /* Orange for Update */
-}
+.icon-add { display: inline-block; }
+.icon-update { display: none; }
+.submit-button.editing .icon-add { display: none; }
+.submit-button.editing .icon-update { display: inline-block; }
 
-/* Spin Animation on Hover */
-.submit-button:hover svg {
-  transform: rotate(360deg);
-}
-
-/* Default: Show Add, Hide Update */
-.icon-add {
-  display: inline-block;
-}
-
-.icon-update {
-  display: none;
-}
-
-/* Editing State: Hide Add, Show Update */
-.submit-button.editing .icon-add {
-  display: none;
-}
-
-.submit-button.editing .icon-update {
-  display: inline-block;
-}
-
-/* Fillters */
+/* =========================================
+   FILTERS (TABS)
+   ========================================= */
 .tab-container {
   position: relative;
   display: flex;
@@ -406,9 +249,7 @@ h2 {
   transition: opacity 0.2s ease;
 }
 
-.tab-btn.active {
-  opacity: 1;
-}
+.tab-btn.active { opacity: 1; }
 
 .indicator {
   content: "";
@@ -425,83 +266,72 @@ h2 {
   transition: all 0.2s ease-out;
 }
 
-.tab-btn:nth-child(1).active ~ .indicator {
-  left: 2px;
+.tab-btn:nth-child(1).active ~ .indicator { left: 2px; }
+.tab-btn:nth-child(2).active ~ .indicator { left: calc(130px + 2px); }
+.tab-btn:nth-child(3).active ~ .indicator { left: calc(130px * 2); }
+
+/* =========================================
+   TASK GRID & CARDS
+   ========================================= */
+.task-list {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 15px;
+  min-height: 100px;
 }
 
-.tab-btn:nth-child(2).active ~ .indicator {
-  left: calc(130px + 2px);
+.task-card {
+  border: 1px solid #ddd;
+  padding: 15px;
+  border-radius: 8px;
+  transition: 0.3s;
 }
 
-.tab-btn:nth-child(3).active ~ .indicator {
-  left: calc(130px * 2);
+.task-card.completed {
+  background-color: #e0ffe0;
+  border: 1px solid #ddd;
+  text-decoration: line-through;
+  box-shadow: none;
 }
 
-/* Delete Button Design */ 
-.delete-button {
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  background-color: rgb(20, 20, 20);
-  border: none;
-  font-weight: 600;
+.task-card.completed h3 {
+  color: inherit;
+}
+
+.task-card.overdue {
+  border: 2px solid #ff4545; 
+  background-color: #fff5f5; 
+  box-shadow: 0px 4px 12px rgba(255, 69, 69, 0.15); 
+}
+
+.task-card.overdue h3 {
+  color: #d32f2f;
+}
+
+.late-badge {
+  color: #ff4545;
+  font-weight: 800;
+  font-size: 0.95em;
+  margin-left: 5px;
+  animation: pulse 2s infinite; 
+}
+
+@keyframes pulse {
+  0% { opacity: 1; }
+  50% { opacity: 0.6; }
+  100% { opacity: 1; }
+}
+
+.actions {
   display: flex;
-  align-items: center;
-  justify-content: center;
-  box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.164);
-  cursor: pointer;
-  transition-duration: 0.3s;
-  overflow: hidden;
-  position: relative;
+  gap: 10px;
+  margin-top: 10px;
 }
 
-.delete-svgIcon {
-  width: 15px;
-  transition-duration: 0.3s;
-}
-
-.delete-svgIcon path {
-  fill: white;
-}
-
-.delete-button:hover {
-  width: 90px;
-  border-radius: 50px;
-  transition-duration: 0.3s;
-  background-color: rgb(255, 69, 69);
-  align-items: center;
-}
-
-.delete-button:hover .delete-svgIcon {
-  width: 20px;
-  transition-duration: 0.3s;
-  transform: translateY(60%);
-  -webkit-transform: rotate(360deg);
-  -moz-transform: rotate(360deg);
-  -o-transform: rotate(360deg);
-  -ms-transform: rotate(360deg);
-  transform: rotate(360deg);
-}
-
-.delete-button::before {
-  display: none;
-  content: "Delete";
-  color: white;
-  transition-duration: 0.3s;
-  font-size: 2px;
-}
-
-.delete-button:hover::before {
-  display: block;
-  padding-right: 10px;
-  font-size: 13px;
-  opacity: 1;
-  transform: translateY(0px);
-  transition-duration: 0.3s;
-}
-
-/* Edit Button Design */ 
-.edit-button {
+/* =========================================
+   SHARED ACTION BUTTON BASE
+   ========================================= */
+.delete-button, .edit-button, .compAndUndo-button {
   width: 40px;
   height: 40px;
   border-radius: 50%;
@@ -519,43 +349,22 @@ h2 {
   text-decoration: none !important;
 }
 
-.edit-svgIcon {
-  width: 17px;
+.delete-button svg, .edit-button svg, .compAndUndo-button svg {
   transition-duration: 0.3s;
 }
 
-.edit-svgIcon path {
+.delete-button svg path, .edit-button svg path, .compAndUndo-button svg path {
   fill: white;
 }
 
-.edit-button:hover {
-  width: 120px;
-  border-radius: 50px;
-  transition-duration: 0.3s;
-  background-color: rgb(255, 174, 69);
-  align-items: center;
-}
-
-.edit-button:hover .edit-svgIcon {
-  width: 20px;
-  transition-duration: 0.3s;
-  transform: translateY(60%);
-  -webkit-transform: rotate(360deg);
-  -moz-transform: rotate(360deg);
-  -o-transform: rotate(360deg);
-  -ms-transform: rotate(360deg);
-  transform: rotate(360deg);
-}
-
-.edit-button::before {
+.delete-button::before, .edit-button::before, .compAndUndo-button::before {
   display: none;
-  content: "Edit";
   color: white;
   transition-duration: 0.3s;
   font-size: 2px;
 }
 
-.edit-button:hover::before {
+.delete-button:hover::before, .edit-button:hover::before, .compAndUndo-button:hover::before {
   display: block;
   padding-right: 10px;
   font-size: 13px;
@@ -564,166 +373,108 @@ h2 {
   transition-duration: 0.3s;
 }
 
-/* Complete & Undo Buttons Design */
-.compAndUndo-button {
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  background-color: rgb(20, 20, 20);
-  border: none;
-  font-weight: 600;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.164);
-  cursor: pointer;
-  transition-duration: 0.3s;
-  overflow: hidden;
-  position: relative;
+/* --- DELETE BUTTON SPECIFICS --- */
+.delete-svgIcon { width: 15px; }
+.delete-button::before { content: "Delete"; }
+
+.delete-button:hover {
+  width: 90px;
+  border-radius: 50px;
+  background-color: rgb(255, 69, 69);
+}
+.delete-button:hover .delete-svgIcon {
+  width: 20px;
+  transform: translateY(60%) rotate(360deg);
 }
 
-.compAndUndo-button svg {
-  width: 17px;
-  height: 17px;
-  transition-duration: 0.3s;
+/* --- EDIT BUTTON SPECIFICS --- */
+.edit-svgIcon { width: 17px; }
+.edit-button::before { content: "Edit"; }
+
+.edit-button:hover {
+  width: 120px;
+  border-radius: 50px;
+  background-color: rgb(255, 174, 69);
+}
+.edit-button:hover .edit-svgIcon {
+  width: 20px;
+  transform: translateY(60%) rotate(360deg);
 }
 
-.compAndUndo-button svg path {
-  fill: white;
-}
+/* --- COMPLETE/UNDO BUTTON SPECIFICS --- */
+.compAndUndo-button svg { width: 17px; height: 17px; }
+.compAndUndo-button::before { content: "Complete"; }
+.task-card.completed .compAndUndo-button::before { content: "Undo"; }
 
-/* Hover expansion */
 .compAndUndo-button:hover {
   width: 125px;
   border-radius: 50px;
   background-color: #4caf50;
 }
+.task-card.completed .compAndUndo-button:hover { background-color: #2196f3; }
+.compAndUndo-button:hover svg { transform: translateY(5%) rotate(360deg); }
 
-/* Change color to blue/gray when in "Undo" mode on hover */
-.task-card.completed .compAndUndo-button:hover {
-  background-color: #2196f3; 
+.icon-undo { display: none; }
+.icon-complete { display: inline-block; }
+.task-card.completed .icon-complete { display: none; }
+.task-card.completed .icon-undo { display: inline-block; }
+
+/* =========================================
+   DRAG AND DROP CDK
+   ========================================= */
+.cdk-drag-placeholder {
+  opacity: 0.3;
+  background: #ccc;
+  border: 2px dashed #999;
+  min-height: 100px;
+  margin-bottom: 10px;
+  border-radius: 8px;
 }
 
-/* Icon animation on hover */
-.compAndUndo-button:hover svg {
-  transform: translateY(5%) rotate(360deg);
+.cdk-drag-preview {
+  box-shadow: 0 10px 20px rgba(0,0,0,0.2) !important;
+  cursor: grabbing;
 }
 
-/* Base text label (Hidden) */
-.compAndUndo-button::before {
-  display: none;
-  color: white;
-  transition-duration: 0.3s;
-  font-size: 2px;
+.cdk-drop-list-dragging .cdk-drag {
+  transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
 }
 
-/* Dynamic Content: "Complete" vs "Undo" */
-.compAndUndo-button::before {
-  content: "Complete";
-}
-
-.task-card.completed .compAndUndo-button::before {
-  content: "Undo";
-}
-
-/* Show text on hover */
-.compAndUndo-button:hover::before {
-  display: block;
+.drag-handle {
+  cursor: grab;
+  color: #ccc;
+  font-size: 20px;
   padding-right: 10px;
-  font-size: 13px;
-  opacity: 1;
-  transform: translateY(0px);
+  user-select: none;
 }
 
-.icon-undo {
-  display: none;
-}
-
-.icon-complete {
-  display: inline-block;
-}
-
-.task-card.completed .icon-complete {
-  display: none;
-}
-
-.task-card.completed .icon-undo {
-  display: inline-block;
-}
-
-/* --- MOBILE PHONES (Up to 600px) --- */
+/* =========================================
+   RESPONSIVE DESIGN (Phones, Tablets, PCs)
+   ========================================= */
 @media (max-width: 600px) {
-  /* Shrink the massive header */
-  h2 {
-    font-size: 32px; 
-  }
-
-  /* Stack the form inputs vertically */
-  .inputGroup {
-    flex-direction: column;
-    align-items: stretch;
-  }
-
-  .input-box {
-    width: 100%;
-  }
-
-  /* Make the submit button full width for easy tapping */
-  .submit-button {
-    width: 100%; 
-  }
-
-  /* Fix the filter tabs from overflowing off the screen */
-  .tab-container {
-    width: 100%;
-  }
-  .tab-btn {
-    width: 33.33%; /* Divide equally instead of 130px */
-    font-size: 0.65rem;
-  }
-  .indicator {
-    width: calc(33.33% - 4px); /* Responsive indicator width */
-  }
-  
-  /* Update indicator sliding math for percentages */
+  h2 { font-size: 32px; }
+  .inputGroup { flex-direction: column; align-items: stretch; }
+  .input-box { width: 100%; }
+  .submit-button { width: 100%; }
+  .tab-container { width: 100%; }
+  .tab-btn { width: 33.33%; font-size: 0.65rem; }
+  .indicator { width: calc(33.33% - 4px); }
   .tab-btn:nth-child(1).active ~ .indicator { left: 2px; }
   .tab-btn:nth-child(2).active ~ .indicator { left: 33.33%; }
   .tab-btn:nth-child(3).active ~ .indicator { left: calc(66.66% - 2px); }
-  
-  /* Ensure task list remains 1 column */
-  .task-list {
-    grid-template-columns: 1fr;
-  }
+  .task-list { grid-template-columns: 1fr; }
 }
 
-/* --- TABLETS (600px to 900px) --- */
 @media (min-width: 600px) and (max-width: 900px) {
-  /* Allow 2 inputs per row, dropping the button to the next line */
-  .input-box {
-    flex: 1 1 45%; 
-  }
-  .submit-button {
-    flex: 1 1 100%; 
-  }
-  
-  /* 2 columns for tasks */
-  .task-list {
-    grid-template-columns: repeat(2, 1fr);
-  }
+  .input-box { flex: 1 1 45%; }
+  .submit-button { flex: 1 1 100%; }
+  .task-list { grid-template-columns: repeat(2, 1fr); }
 }
 
-/* --- LAPTOPS & SMALL MONITORS (900px to 1200px) --- */
 @media (min-width: 900px) {
-  /* 3 columns for tasks */
-  .task-list {
-    grid-template-columns: repeat(3, 1fr);
-  }
+  .task-list { grid-template-columns: repeat(3, 1fr); }
 }
 
-/* --- LARGE DESKTOP MONITORS (1200px and up) --- */
 @media (min-width: 1200px) {
-  /* Take advantage of the new 1200px container and show 4 columns */
-  .task-list {
-    grid-template-columns: repeat(4, 1fr);
-  }
+  .task-list { grid-template-columns: repeat(4, 1fr); }
 }
