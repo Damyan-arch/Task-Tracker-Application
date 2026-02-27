@@ -18,12 +18,12 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
   }
 
   async validate(payload: { username: string }): Promise<User> {
-  const { username } = payload;
-  const user = await this.userRepository.findOne({ where: { username } });
+    const { username } = payload;
+    const user = await this.userRepository.findOne({ where: { username } });
 
-  if (!user) {
-    throw new UnauthorizedException(); // This triggers your 401 error
+    if (!user) {
+      throw new UnauthorizedException(); // This triggers your 401 error
+    }
+    return user; // This attaches the user to the request
   }
-  return user; // This attaches the user to the request
-}
 }
