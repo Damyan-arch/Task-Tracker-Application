@@ -1,0 +1,23 @@
+<div class="login-container">
+  <h2>Create a New Account</h2>
+  
+  <form (ngSubmit)="onRegister()">
+    <div class="input-group">
+      <label>Choose Username</label>
+      <input type="text" [(ngModel)]="regData.username" name="username" required>
+    </div>
+
+    <div class="input-group">
+      <label>Choose Password</label>
+      <input type="password" [(ngModel)]="regData.password" name="password" required>
+    </div>
+
+    <button type="submit">Sign Up</button>
+    
+    <p class="error" *ngIf="errorMessage">{{ errorMessage }}</p>
+    
+    <p class="footer-text">
+      Already have an account? <a routerLink="/login">Sign In here</a>
+    </p>
+  </form>
+</div>
