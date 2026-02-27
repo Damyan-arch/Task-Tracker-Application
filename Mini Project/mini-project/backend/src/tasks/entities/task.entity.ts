@@ -19,7 +19,7 @@ export class Task {
   dueDate: Date;
 
   @Column({ type: 'int', default: 0 })
-  order: number;
+  position: number;
 
   @ManyToOne(() => User, (user) => user.tasks, { eager: false })
   user: User;

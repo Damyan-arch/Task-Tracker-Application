@@ -1,4 +1,15 @@
-import { Controller, Get, Post, Body, Param, Delete, Patch, ParseIntPipe, UseGuards, ValidationPipe } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Param,
+  Delete,
+  Patch,
+  ParseIntPipe,
+  UseGuards,
+  ValidationPipe,
+} from '@nestjs/common';
 import { TasksService } from './tasks.service';
 import { Task } from './entities/task.entity';
 import { UpdateTaskDto } from './dto/update-task.dto';
@@ -20,7 +31,7 @@ export class TasksController {
   @Post()
   createTask(
     @Body(ValidationPipe) createTaskDto: CreateTaskDto, // Replaced any
-    @GetUser() user: User, 
+    @GetUser() user: User,
   ) {
     return this.tasksService.createTask(createTaskDto, user); //
   }
@@ -38,11 +49,8 @@ export class TasksController {
     return this.tasksService.deleteTask(id);
   }
 
-  @Patch('reorder')
-  reorderTasks(
-    @Body('taskIds') taskIds: number[],
-    @GetUser() user: User
-  ): Promise<void> {
-    return this.tasksService.reorderTasks(taskIds, user);
+  @Post('/reorder')
+  updateTaskOrder(@Body() tasks: Task[]): Promise<void> {
+    return this.tasksService.updateTaskOrder(tasks);
   }
 }

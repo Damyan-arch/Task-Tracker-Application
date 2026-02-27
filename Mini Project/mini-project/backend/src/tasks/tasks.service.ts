@@ -17,7 +17,7 @@ export class TasksService {
   async getTasks(user: User): Promise<Task[]> {
     return await this.taskRepository.find({
       where: { user },
-      order: { order: 'ASC', id: 'ASC' },
+      order: { position: 'ASC', id: 'ASC' },
     });
   }
 
@@ -55,7 +55,16 @@ export class TasksService {
   async reorderTasks(taskIds: number[], user: User): Promise<void> {
     // Loop through the array of IDs and update their order in the DB
     for (let i = 0; i < taskIds.length; i++) {
-      await this.taskRepository.update({ id: taskIds[i], user }, { order: i });
+      await this.taskRepository.update(
+        { id: taskIds[i], user },
+        { position: i },
+      );
+    }
+  }
+
+  async updateTaskOrder(tasks: Task[]): Promise<void> {
+    for (let i = 0; i < tasks.length; i++) {
+      await this.taskRepository.update(tasks[i].id, { position: i });
     }
   }
 }

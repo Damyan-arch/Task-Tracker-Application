@@ -140,16 +140,13 @@ export class TaskDashboardComponent implements OnInit {
   }
 
   drop(event: CdkDragDrop<Task[]>) {
-    // 1. Get the current visible list
-    const currentList = this.filteredTasks;
+    // 1. Move the item visually in the array
+    moveItemInArray(this.tasks, event.previousIndex, event.currentIndex);
 
-    // 2. Move the item visually in the array
-    moveItemInArray(currentList, event.previousIndex, event.currentIndex);
-
-    // 3. Extract the IDs in their new order
-    const orderedIds = currentList.map((task) => task.id);
-
-    // 4. Send to backend to save
-    this.taskService.reorderTasks(orderedIds).subscribe();
+    // 3. Send to backend to save
+    this.taskService.updateOrder(this.tasks).subscribe({
+      next: () => console.log('Order saved successfully'),
+      error: (err) => console.error('Error saving order', err)
+    });
   }
 }

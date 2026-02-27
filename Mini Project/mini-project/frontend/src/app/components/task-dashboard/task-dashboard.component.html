@@ -106,10 +106,8 @@
     >
       <div
         class="drag-handle"
-        cdkDragHandle
-        style="cursor: grab; color: #ccc; margin-bottom: 5px"
-      >
-        ⠿ Drag to reorder
+        cdkDragHandle>
+        ⠿
       </div>
       <h3>{{ task.title }}</h3>
       <p>{{ task.description }}</p>
@@ -122,6 +120,8 @@
         📅 <strong>Due:</strong> {{ task.dueDate | date: "mediumDate" }}
         <span *ngIf="isOverdue(task)" class="late-badge"> (Overdue)</span>
       </p>
+
+      <div class="cdk-drag-placeholder" *cdkDragPlaceholder></div>
 
       <div class="actions">
         <!-- Complete & Undo Buttons -->

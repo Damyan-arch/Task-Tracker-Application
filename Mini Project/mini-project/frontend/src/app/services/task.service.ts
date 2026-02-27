@@ -4,11 +4,11 @@ import { Observable } from 'rxjs';
 import { Task } from '../interface/task';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class TaskService {
   // Replace with your NestJS server URL
-  private apiUrl = 'http://localhost:3000/tasks'; 
+  private apiUrl = 'http://localhost:3000/tasks';
 
   constructor(private http: HttpClient) {}
 
@@ -24,7 +24,10 @@ export class TaskService {
 
   // Calls NestJS: @Patch(':id') updateTask()
   updateTask(updatedTask: Task): Observable<Task> {
-    return this.http.patch<Task>(`${this.apiUrl}/${updatedTask.id}`, updatedTask);
+    return this.http.patch<Task>(
+      `${this.apiUrl}/${updatedTask.id}`,
+      updatedTask,
+    );
   }
 
   // Calls NestJS: @Delete(':id') deleteTask()
@@ -34,5 +37,9 @@ export class TaskService {
 
   reorderTasks(taskIds: number[]): Observable<void> {
     return this.http.patch<void>(`${this.apiUrl}/reorder`, { taskIds });
+  }
+
+  updateOrder(tasks: Task[]): Observable<void> {
+    return this.http.post<void>(`${this.apiUrl}/reorder`, tasks);
   }
 }
