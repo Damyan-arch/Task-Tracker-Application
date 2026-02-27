@@ -63,6 +63,45 @@ h2 {
   gap: 15px;
 }
 
+/* Overdue Task Card Styling */
+.task-card.overdue {
+  border: 2px solid #ff4545; /* Red border */
+  background-color: #fff5f5; /* Very light red background */
+  box-shadow: 0px 4px 12px rgba(255, 69, 69, 0.15); /* Slight red glow */
+}
+
+/* Make the title red to emphasize urgency */
+.task-card.overdue h3 {
+  color: #d32f2f;
+}
+
+/* The small overdue text badge */
+.late-badge {
+  color: #ff4545;
+  font-weight: 800;
+  font-size: 0.95em;
+  margin-left: 5px;
+  animation: pulse 2s infinite; /* Optional: adds a gentle pulsing effect */
+}
+
+/* Optional: Gentle pulse animation to grab attention */
+@keyframes pulse {
+  0% { opacity: 1; }
+  50% { opacity: 0.6; }
+  100% { opacity: 1; }
+}
+
+/* Ensure the completed styling completely overrides the overdue styling */
+.task-card.completed {
+  background-color: #e0ffe0;
+  border: 1px solid #ddd;
+  text-decoration: line-through;
+  box-shadow: none;
+}
+.task-card.completed h3 {
+  color: inherit;
+}
+
 .task-card {
   border: 1px solid #ddd;
   padding: 15px;

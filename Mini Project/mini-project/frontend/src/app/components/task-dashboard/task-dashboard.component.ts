@@ -21,7 +21,8 @@ export class TaskDashboardComponent implements OnInit {
   newTask: Omit<Task, 'id'> = {
     title: '',
     description: '',
-    completed: false
+    completed: false,
+    dueDate: ''
   };
 
   editMode: boolean = false;
@@ -98,7 +99,7 @@ export class TaskDashboardComponent implements OnInit {
   }
 
   resetForm() {
-    this.newTask = { title: '', description: '', completed: false };
+    this.newTask = { title: '', description: '', completed: false, dueDate: '' };
   }
 
   resetEditState() {
@@ -110,5 +111,20 @@ export class TaskDashboardComponent implements OnInit {
   onLogout() {
     this.authService.logout(); // Clears the token
     this.router.navigate(['/login']); // Redirects to login
+  }
+
+  isOverdue(task: Task): boolean {
+    if (!task.dueDate || task.completed) {
+      return false; // No due date or already completed means it's not late
+    }
+    
+    const today = new Date();
+    // Set today's time to midnight to ensure accurate day-to-day comparison
+    today.setHours(0, 0, 0, 0); 
+    
+    const dueDate = new Date(task.dueDate);
+    dueDate.setHours(0, 0, 0, 0);
+
+    return dueDate < today;
   }
 }
