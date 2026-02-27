@@ -1,5 +1,10 @@
 <div class="container">
-  <h2>Task Dashboard</h2>
+  <div class="header-section">
+    <h2>Task Dashboard</h2>
+    <button class="logout-btn" (click)="onLogout()">
+      Logout
+    </button>
+  </div>
 
   <!-- Task Form -->
   <form (ngSubmit)="addOrUpdateTask()" class="task-form">

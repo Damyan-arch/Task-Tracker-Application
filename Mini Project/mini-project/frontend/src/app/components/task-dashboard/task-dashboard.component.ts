@@ -3,6 +3,8 @@ import { TaskService } from '../../services/task.service';
 import { Task } from '../../interface/task';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { AuthService } from '../../services/auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-task-dashboard',
@@ -25,7 +27,11 @@ export class TaskDashboardComponent implements OnInit {
   editMode: boolean = false;
   editingTaskId: number | null = null;
 
-  constructor(private taskService: TaskService) {}
+  constructor(
+    private taskService: TaskService,
+    private authService: AuthService,
+    private router: Router
+  ) {}
 
   // Triggered when the component loads
   ngOnInit() {
@@ -99,5 +105,10 @@ export class TaskDashboardComponent implements OnInit {
     this.editMode = false;
     this.editingTaskId = null;
     this.resetForm();
+  }
+
+  onLogout() {
+    this.authService.logout(); // Clears the token
+    this.router.navigate(['/login']); // Redirects to login
   }
 }

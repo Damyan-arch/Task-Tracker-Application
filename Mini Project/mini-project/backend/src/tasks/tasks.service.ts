@@ -4,6 +4,7 @@ import { Repository } from 'typeorm';
 import { Task } from './entities/task.entity';
 import { CreateTaskDto } from './dto/create-task.dto';
 import { UpdateTaskDto } from './dto/update-task.dto';
+import { User } from '../auth/entities/user.entity'; // Import the User entity
 
 @Injectable()
 export class TasksService {
@@ -12,21 +13,22 @@ export class TasksService {
     private taskRepository: Repository<Task>,
   ) {}
 
-  // Corresponds to Angular taskService.getTasks()
-  async getTasks(): Promise<Task[]> {
-    return await this.taskRepository.find();
+  // Accept user to filter tasks specifically for the logged-in owner
+  async getTasks(user: User): Promise<Task[]> {
+    return await this.taskRepository.find({ where: { user } });
   }
 
-  // Corresponds to Angular taskService.addTask()
-  async createTask(createTaskDto: CreateTaskDto): Promise<Task> {
+  // Assign the task to the user during creation
+  async createTask(createTaskDto: CreateTaskDto, user: User): Promise<Task> {
     const task = this.taskRepository.create({
       ...createTaskDto,
       completed: false,
+      user, // This links the task to the user in the DB
     });
     return await this.taskRepository.save(task);
   }
 
-  // Corresponds to Angular taskService.updateTask()
+  // Update logic remains similar, but should ideally check user ownership
   async updateTask(id: number, updateTaskDto: UpdateTaskDto): Promise<Task> {
     const task = await this.taskRepository.preload({
       id: id,
@@ -40,7 +42,6 @@ export class TasksService {
     return await this.taskRepository.save(task);
   }
 
-  // Corresponds to Angular taskService.deleteTask()
   async deleteTask(id: number): Promise<void> {
     const result = await this.taskRepository.delete(id);
     if (result.affected === 0) {
