@@ -1,0 +1,32 @@
+<div class="wrapper">
+  <div class="card-switch">
+      <label class="switch">
+         <input type="checkbox" class="toggle" [(ngModel)]="isFlipped">
+         <span class="slider"></span>
+         <span class="card-side"></span>
+         
+         <div class="flip-card__inner">
+            <div class="flip-card__front">
+               <div class="title">Log in</div>
+               <form class="flip-card__form" (ngSubmit)="onLogin()">
+                  <input class="flip-card__input" name="loginUser" [(ngModel)]="loginData.username" placeholder="Username" type="text" required>
+                  <input class="flip-card__input" name="loginPass" [(ngModel)]="loginData.password" placeholder="Password" type="password" required>
+                  <button class="flip-card__btn" type="submit">Let's go!</button>
+                  <p class="error-msg" *ngIf="loginError">{{ loginError }}</p>
+               </form>
+            </div>
+
+            <div class="flip-card__back">
+               <div class="title">Sign up</div>
+               <form class="flip-card__form" (ngSubmit)="onRegister()">
+                  <input class="flip-card__input" name="regUser" [(ngModel)]="regData.username" placeholder="Choose Username" type="text" required>
+                  <input class="flip-card__input" name="regPass" [(ngModel)]="regData.password" placeholder="Choose Password" type="password" required>
+                  <button class="flip-card__btn" type="submit">Confirm!</button>
+                  <p class="error-msg" *ngIf="regError">{{ regError }}</p>
+                  <p class="success-msg" *ngIf="regSuccess">{{ regSuccess }}</p>
+               </form>
+            </div>
+         </div>
+      </label>
+  </div>   
+</div>

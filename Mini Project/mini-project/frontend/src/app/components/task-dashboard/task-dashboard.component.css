@@ -1,0 +1,480 @@
+html, body {
+  margin: 0;
+  padding: 0;
+  background-color: #f8efea;
+}
+
+.container {
+  max-width: 1200px;
+  margin: auto;
+  padding: 20px;
+}
+
+.header-section {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+h2 {
+  text-align: center;
+  font-family: serif;
+  font-size: 50px;
+  font-style: italic;
+}
+
+/* =========================================
+   LOGOUT BUTTON
+   ========================================= */
+.logout-btn {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  width: 45px;
+  height: 45px;
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  transition-duration: .3s;
+  box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.199);
+  background-color: rgb(255, 65, 65);
+}
+
+.sign {
+  width: 100%;
+  transition-duration: .3s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.sign svg {
+  width: 17px;
+}
+
+.sign svg path {
+  fill: white;
+}
+
+.text {
+  position: absolute;
+  right: 0%;
+  width: 0%;
+  opacity: 0;
+  color: white;
+  font-size: 15px; 
+  font-weight: 600;
+  transition-duration: .3s;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.logout-btn:hover {
+  width: 125px;
+  border-radius: 40px;
+  background-color: #d32f2f; 
+  transform: scale(1.05); 
+  transition-duration: .3s;
+}
+
+.logout-btn:hover .sign {
+  width: 45px;
+  transition-duration: .3s;
+}
+
+.logout-btn:hover .text {
+  opacity: 1;
+  width: calc(100% - 45px);
+  transition-duration: .3s;
+  padding-right: 0;
+  padding-left: 5px;
+}
+
+.logout-btn:active {
+  transform: translate(2px ,2px);
+}
+
+/* =========================================
+   FORM & INPUTS
+   ========================================= */
+.task-form {
+  margin-bottom: 20px;
+}
+
+.inputGroup {
+  font-family: 'Segoe UI', sans-serif;
+  margin: 1.5em 0;
+  display: flex;
+  flex-direction: row;
+  gap: 15px;  
+  align-items: center;
+  max-width: 100%;
+  width: 100%;       
+  flex-wrap: wrap;
+}
+
+.input-box {
+  position: relative;
+  flex: 1;
+  min-width: 0;
+}
+
+.input-box input {
+  font-size: 100%;
+  padding: 0.8em;
+  outline: none;
+  border: 2px solid rgb(200, 200, 200);
+  background-color: transparent;
+  border-radius: 20px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.input-box label {
+  font-size: 100%;
+  position: absolute;
+  left: 0;
+  top: 0;
+  padding: 0.8em;
+  margin-left: 0.5em;
+  pointer-events: none;
+  transition: all 0.3s ease;
+  color: rgb(100, 100, 100);
+}
+
+/* Floating Label Logic */
+.input-box :is(input:focus, input:valid) ~ label {
+  transform: translateY(-50%) scale(.9);
+  margin: 0;
+  margin-left: 1.3em;
+  padding: 0 0.4em;
+  background-color: #f8efea; 
+  color: rgb(150, 150, 200);
+  z-index: 10;
+}
+
+.input-box :is(input:focus, input:valid) {
+  border-color: rgb(150, 150, 200);
+}
+
+/* =========================================
+   SUBMIT BUTTON (ADD / UPDATE)
+   ========================================= */
+.submit-button {
+  width: 150px;
+  height: 40px;
+  border-radius: 50px;
+  background-color: rgb(20, 20, 20);
+  border: none;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.164);
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.2s;
+  color: white;
+  position: relative;
+  overflow: hidden;
+}
+
+.button-text {
+  font-size: 13px;
+  z-index: 2;
+}
+
+.icon-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.submit-button svg {
+  width: 17px;
+  height: 17px;
+  transition: transform 0.5s ease;
+}
+
+.submit-button svg path {
+  stroke: white;
+  fill: white;
+}
+
+.icon-add path {
+  stroke: white !important;
+}
+
+.submit-button:hover { background-color: #6200ea; }
+.submit-button.editing:hover { background-color: #ff9100; }
+.submit-button:hover svg { transform: rotate(360deg); }
+
+.icon-add { display: inline-block; }
+.icon-update { display: none; }
+.submit-button.editing .icon-add { display: none; }
+.submit-button.editing .icon-update { display: inline-block; }
+
+/* =========================================
+   FILTERS (TABS)
+   ========================================= */
+.tab-container {
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  padding: 2px;
+  background-color: #dadadb;
+  border-radius: 9px;
+  width: fit-content;
+  margin: 20px auto;
+}
+
+.tab-btn {
+  width: 130px;
+  height: 30px;
+  position: relative;
+  z-index: 999; 
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 0;
+  background: transparent;
+  font-size: 0.75rem;
+  font-weight: 600;
+  opacity: 0.6;
+  cursor: pointer;
+  transition: opacity 0.2s ease;
+}
+
+.tab-btn.active { opacity: 1; }
+
+.indicator {
+  content: "";
+  width: 130px;
+  height: 28px;
+  background: #ffffff;
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  z-index: 9;
+  border: 0.5px solid rgba(0, 0, 0, 0.04);
+  box-shadow: 0px 3px 8px rgba(0, 0, 0, 0.12), 0px 3px 1px rgba(0, 0, 0, 0.04);
+  border-radius: 7px;
+  transition: all 0.2s ease-out;
+}
+
+.tab-btn:nth-child(1).active ~ .indicator { left: 2px; }
+.tab-btn:nth-child(2).active ~ .indicator { left: calc(130px + 2px); }
+.tab-btn:nth-child(3).active ~ .indicator { left: calc(130px * 2); }
+
+/* =========================================
+   TASK GRID & CARDS
+   ========================================= */
+.task-list {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 15px;
+  min-height: 100px;
+}
+
+.task-card {
+  border: 1px solid #ddd;
+  padding: 15px;
+  border-radius: 8px;
+  transition: 0.3s;
+}
+
+.task-card.completed {
+  background-color: #e0ffe0;
+  border: 1px solid #ddd;
+  text-decoration: line-through;
+  box-shadow: none;
+}
+
+.task-card.completed h3 {
+  color: inherit;
+}
+
+.task-card.overdue {
+  border: 2px solid #ff4545; 
+  background-color: #fff5f5; 
+  box-shadow: 0px 4px 12px rgba(255, 69, 69, 0.15); 
+}
+
+.task-card.overdue h3 {
+  color: #d32f2f;
+}
+
+.late-badge {
+  color: #ff4545;
+  font-weight: 800;
+  font-size: 0.95em;
+  margin-left: 5px;
+  animation: pulse 2s infinite; 
+}
+
+@keyframes pulse {
+  0% { opacity: 1; }
+  50% { opacity: 0.6; }
+  100% { opacity: 1; }
+}
+
+.actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+/* =========================================
+   SHARED ACTION BUTTON BASE
+   ========================================= */
+.delete-button, .edit-button, .compAndUndo-button {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: rgb(20, 20, 20);
+  border: none;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.164);
+  cursor: pointer;
+  transition-duration: 0.3s;
+  overflow: hidden;
+  position: relative;
+  text-decoration: none !important;
+}
+
+.delete-button svg, .edit-button svg, .compAndUndo-button svg {
+  transition-duration: 0.3s;
+}
+
+.delete-button svg path, .edit-button svg path, .compAndUndo-button svg path {
+  fill: white;
+}
+
+.delete-button::before, .edit-button::before, .compAndUndo-button::before {
+  display: none;
+  color: white;
+  transition-duration: 0.3s;
+  font-size: 2px;
+}
+
+.delete-button:hover::before, .edit-button:hover::before, .compAndUndo-button:hover::before {
+  display: block;
+  padding-right: 10px;
+  font-size: 13px;
+  opacity: 1;
+  transform: translateY(0px);
+  transition-duration: 0.3s;
+}
+
+/* --- DELETE BUTTON SPECIFICS --- */
+.delete-svgIcon { width: 15px; }
+.delete-button::before { content: "Delete"; }
+
+.delete-button:hover {
+  width: 90px;
+  border-radius: 50px;
+  background-color: rgb(255, 69, 69);
+}
+.delete-button:hover .delete-svgIcon {
+  width: 20px;
+  transform: translateY(60%) rotate(360deg);
+}
+
+/* --- EDIT BUTTON SPECIFICS --- */
+.edit-svgIcon { width: 17px; }
+.edit-button::before { content: "Edit"; }
+
+.edit-button:hover {
+  width: 120px;
+  border-radius: 50px;
+  background-color: rgb(255, 174, 69);
+}
+.edit-button:hover .edit-svgIcon {
+  width: 20px;
+  transform: translateY(60%) rotate(360deg);
+}
+
+/* --- COMPLETE/UNDO BUTTON SPECIFICS --- */
+.compAndUndo-button svg { width: 17px; height: 17px; }
+.compAndUndo-button::before { content: "Complete"; }
+.task-card.completed .compAndUndo-button::before { content: "Undo"; }
+
+.compAndUndo-button:hover {
+  width: 125px;
+  border-radius: 50px;
+  background-color: #4caf50;
+}
+.task-card.completed .compAndUndo-button:hover { background-color: #2196f3; }
+.compAndUndo-button:hover svg { transform: translateY(5%) rotate(360deg); }
+
+.icon-undo { display: none; }
+.icon-complete { display: inline-block; }
+.task-card.completed .icon-complete { display: none; }
+.task-card.completed .icon-undo { display: inline-block; }
+
+/* =========================================
+   DRAG AND DROP CDK
+   ========================================= */
+.cdk-drag-placeholder {
+  opacity: 0.3;
+  background: #ccc;
+  border: 2px dashed #999;
+  min-height: 100px;
+  margin-bottom: 10px;
+  border-radius: 8px;
+}
+
+.cdk-drag-preview {
+  box-shadow: 0 10px 20px rgba(0,0,0,0.2) !important;
+  cursor: grabbing;
+}
+
+.cdk-drop-list-dragging .cdk-drag {
+  transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
+}
+
+.drag-handle {
+  cursor: grab;
+  color: #ccc;
+  font-size: 20px;
+  padding-right: 10px;
+  user-select: none;
+}
+
+/* =========================================
+   RESPONSIVE DESIGN (Phones, Tablets, PCs)
+   ========================================= */
+@media (max-width: 600px) {
+  h2 { font-size: 32px; }
+  .inputGroup { flex-direction: column; align-items: stretch; }
+  .input-box { width: 100%; }
+  .submit-button { width: 100%; }
+  .tab-container { width: 100%; }
+  .tab-btn { width: 33.33%; font-size: 0.65rem; }
+  .indicator { width: calc(33.33% - 4px); }
+  .tab-btn:nth-child(1).active ~ .indicator { left: 2px; }
+  .tab-btn:nth-child(2).active ~ .indicator { left: 33.33%; }
+  .tab-btn:nth-child(3).active ~ .indicator { left: calc(66.66% - 2px); }
+  .task-list { grid-template-columns: 1fr; }
+}
+
+@media (min-width: 600px) and (max-width: 900px) {
+  .input-box { flex: 1 1 45%; }
+  .submit-button { flex: 1 1 100%; }
+  .task-list { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (min-width: 900px) {
+  .task-list { grid-template-columns: repeat(3, 1fr); }
+}
+
+@media (min-width: 1200px) {
+  .task-list { grid-template-columns: repeat(4, 1fr); }
+}

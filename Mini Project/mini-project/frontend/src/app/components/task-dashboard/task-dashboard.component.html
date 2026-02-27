@@ -1,0 +1,199 @@
+<div class="container">
+  <div class="header-section">
+    <h2>Task Dashboard</h2>
+    <button class="logout-btn" (click)="onLogout()">
+      <div class="sign">
+        <svg viewBox="0 0 512 512">
+          <path
+            d="M377.9 105.9L500.7 228.7c7.2 7.2 11.3 17.1 11.3 27.3s-4.1 20.1-11.3 27.3L377.9 406.1c-6.4 6.4-15 9.9-24 9.9c-18.7 0-33.9-15.2-33.9-33.9l0-62.1-128 0c-17.7 0-32-14.3-32-32l0-64c0-17.7 14.3-32 32-32l128 0 0-62.1c0-18.7 15.2-33.9 33.9-33.9c9 0 17.6 3.6 24 9.9zM160 96L96 96c-17.7 0-32 14.3-32 32l0 256c0 17.7 14.3 32 32 32l64 0c17.7 0 32 14.3 32 32s-14.3 32-32 32l-64 0c-53 0-96-43-96-96L0 128C0 75 43 32 96 32l64 0c17.7 0 32 14.3 32 32s-14.3 32-32 32z"
+          ></path>
+        </svg>
+      </div>
+      <div class="text">Logout</div>
+    </button>
+  </div>
+
+  <!-- Task Form -->
+  <form (ngSubmit)="addOrUpdateTask()" class="task-form">
+    <!-- Input Group -->
+    <div class="inputGroup">
+      <div class="input-box">
+        <input type="text" [(ngModel)]="newTask.title" name="title" required />
+        <label for="title">Title</label>
+      </div>
+      <div class="input-box">
+        <input
+          type="text"
+          [(ngModel)]="newTask.description"
+          name="description"
+          required
+        />
+        <label for="description">Description</label>
+      </div>
+
+      <div class="input-box">
+        <input type="date" [(ngModel)]="newTask.dueDate" name="dueDate" />
+        <label for="dueDate">Due Date</label>
+      </div>
+
+      <!-- Submit Button -->
+      <button type="submit" class="submit-button" [class.editing]="editMode">
+        <span class="button-text">{{
+          editMode ? "Update Task" : "Add Task"
+        }}</span>
+        <div class="icon-container">
+          <!-- Add Button Icon -->
+          <svg
+            class="icon-add"
+            width="800px"
+            height="800px"
+            viewBox="0 0 15 15"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path d="M7.5 1V14M1 7.5H14" stroke="#000000" />
+          </svg>
+
+          <!-- Update Button Icon -->
+          <svg
+            class="icon-update"
+            width="800px"
+            height="800px"
+            viewBox="0 0 15 15"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              fill-rule="evenodd"
+              clip-rule="evenodd"
+              d="M1.90321 7.29677C1.90321 10.341 4.11041 12.4147 6.58893 12.8439C6.87255 12.893 7.06266 13.1627 7.01355 13.4464C6.96444 13.73 6.69471 13.9201 6.41109 13.871C3.49942 13.3668 0.86084 10.9127 0.86084 7.29677C0.860839 5.76009 1.55996 4.55245 2.37639 3.63377C2.96124 2.97568 3.63034 2.44135 4.16846 2.03202L2.53205 2.03202C2.25591 2.03202 2.03205 1.80816 2.03205 1.53202C2.03205 1.25588 2.25591 1.03202 2.53205 1.03202L5.53205 1.03202C5.80819 1.03202 6.03205 1.25588 6.03205 1.53202L6.03205 4.53202C6.03205 4.80816 5.80819 5.03202 5.53205 5.03202C5.25591 5.03202 5.03205 4.80816 5.03205 4.53202L5.03205 2.68645L5.03054 2.68759L5.03045 2.68766L5.03044 2.68767L5.03043 2.68767C4.45896 3.11868 3.76059 3.64538 3.15554 4.3262C2.44102 5.13021 1.90321 6.10154 1.90321 7.29677ZM13.0109 7.70321C13.0109 4.69115 10.8505 2.6296 8.40384 2.17029C8.12093 2.11718 7.93465 1.84479 7.98776 1.56188C8.04087 1.27898 8.31326 1.0927 8.59616 1.14581C11.4704 1.68541 14.0532 4.12605 14.0532 7.70321C14.0532 9.23988 13.3541 10.4475 12.5377 11.3662C11.9528 12.0243 11.2837 12.5586 10.7456 12.968L12.3821 12.968C12.6582 12.968 12.8821 13.1918 12.8821 13.468C12.8821 13.7441 12.6582 13.968 12.3821 13.968L9.38205 13.968C9.10591 13.968 8.88205 13.7441 8.88205 13.468L8.88205 10.468C8.88205 10.1918 9.10591 9.96796 9.38205 9.96796C9.65819 9.96796 9.88205 10.1918 9.88205 10.468L9.88205 12.3135L9.88362 12.3123C10.4551 11.8813 11.1535 11.3546 11.7585 10.6738C12.4731 9.86976 13.0109 8.89844 13.0109 7.70321Z"
+              fill="#000000"
+            />
+          </svg>
+        </div>
+      </button>
+    </div>
+  </form>
+
+  <!-- Filter Buttons -->
+  <div class="tab-container">
+    <button
+      class="tab-btn"
+      [class.active]="filter === 'all'"
+      (click)="setFilter('all')"
+    >
+      All
+    </button>
+
+    <button
+      class="tab-btn"
+      [class.active]="filter === 'completed'"
+      (click)="setFilter('completed')"
+    >
+      Completed
+    </button>
+
+    <button
+      class="tab-btn"
+      [class.active]="filter === 'pending'"
+      (click)="setFilter('pending')"
+    >
+      Pending
+    </button>
+
+    <div class="indicator"></div>
+  </div>
+
+  <!-- Task List -->
+  <div class="task-list" cdkDropList (cdkDropListDropped)="drop($event)">
+    <div
+      *ngFor="let task of filteredTasks"
+      class="task-card"
+      [class.completed]="task.completed"
+      [class.overdue]="isOverdue(task)"
+      cdkDrag
+    >
+      <div class="drag-handle" cdkDragHandle>⠿</div>
+      <h3>{{ task.title }}</h3>
+      <p>{{ task.description }}</p>
+
+      <p
+        *ngIf="task.dueDate"
+        class="due-date"
+        style="font-size: 0.9em; color: #555"
+      >
+        📅 <strong>Due:</strong> {{ task.dueDate | date: "mediumDate" }}
+        <span *ngIf="isOverdue(task)" class="late-badge"> (Overdue)</span>
+      </p>
+
+      <div class="cdk-drag-placeholder" *cdkDragPlaceholder></div>
+
+      <div class="actions">
+        <!-- Complete & Undo Buttons -->
+        <button class="compAndUndo-button" (click)="toggleComplete(task)">
+          <!-- Complete Icon -->
+          <svg
+            class="icon-complete"
+            version="1.1"
+            id="Capa_1"
+            xmlns="http://www.w3.org/2000/svg"
+            xmlns:xlink="http://www.w3.org/1999/xlink"
+            x="0px"
+            y="0px"
+            viewBox="0 0 568.599 568.599"
+            style="enable-background: new 0 0 568.599 568.599"
+            xml:space="preserve"
+          >
+            <g>
+              <g>
+                <path
+                  d="M565.692,147.211L507.96,89.479c-4.08-4.08-10.404-4.08-14.484,0L241.128,342.031L75.276,176.179
+			c-4.08-4.08-10.404-4.08-14.484,0L3.06,233.911c-4.08,4.08-4.08,10.404,0,14.484l230.724,230.724
+			c1.836,1.836,4.488,3.06,7.14,3.06s5.304-1.02,7.14-3.06l317.628-317.424C569.568,157.615,569.568,151.291,565.692,147.211z
+			 M241.128,457.495L24.684,241.051l43.248-43.248l165.852,165.852c4.08,4.08,10.404,4.08,14.484,0L500.82,111.103l43.248,43.248
+			L241.128,457.495z"
+                />
+                <path
+                  d="M497.148,133.543L352.92,277.771c-2.04,2.04-2.04,5.304,0,7.14c1.02,1.02,2.244,1.428,3.672,1.428
+			c1.428,0,2.652-0.408,3.672-1.428L500.82,144.355l10.812,10.812c2.04,2.04,5.304,2.04,7.14,0c2.04-2.04,2.04-5.304,0-7.14
+			l-14.484-14.484c-1.02-1.02-2.244-1.428-3.672-1.428C499.188,132.115,498.168,132.523,497.148,133.543z"
+                />
+              </g>
+            </g>
+          </svg>
+
+          <!-- Undo Icon -->
+          <svg
+            class="icon-undo"
+            fill="#000000"
+            width="800px"
+            height="800px"
+            viewBox="0 0 24 24"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              fill-rule="evenodd"
+              d="M16.4142136,19 L3,19 L3,5.58578644 L7.00303323,9.58881966 C7.49462757,9.10850918 7.79108599,8.84206192 8.15308273,8.55246452 C9.52535784,7.45464443 10.8892911,7 13,7 C16.8865002,7 21,10.1786135 21,14 L21,16.4142136 L19.2928932,14.7071068 C19.2516511,14.6658647 19.155428,14.5775287 19.0108698,14.4578943 C18.761891,14.2518429 18.4769276,14.0445968 18.1634026,13.8516583 C17.2925728,13.3157631 16.384754,13 15.5,13 C13.9392439,13 13.1642337,13.4480392 12.2606895,14.8464759 L16.4142136,19 Z M5,10.4142136 L5,17 L11.5857864,17 L9.752808,15.1670216 L10.1317569,14.5038611 C11.5459265,12.0290643 12.8829751,11 15.5,11 C16.392569,11 17.2596413,11.2038406 18.0903796,11.5618734 C16.9534008,10.0761184 14.9223683,9 13,9 C11.3329311,9 10.4111501,9.30726033 9.40247283,10.1142021 C8.97349368,10.4573855 8.62351658,10.790697 7.70710678,11.7071068 L7,12.4142136 L5,10.4142136 Z"
+            />
+          </svg>
+        </button>
+        <!-- Edit Button -->
+        <button class="edit-button" (click)="editTask(task)">
+          <svg class="edit-svgIcon" viewBox="0 0 512 512">
+            <path
+              d="M410.3 231l11.3-11.3-33.9-33.9-62.1-62.1L291.7 89.8l-11.3 11.3-22.6 22.6L58.6 322.9c-10.4 10.4-18 23.3-22.2 37.4L1 480.7c-2.5 8.4-.2 17.5 6.1 23.7s15.3 8.5 23.7 6.1l120.3-35.4c14.1-4.2 27-11.8 37.4-22.2L387.7 253.7 410.3 231zM160 399.4l-9.1 22.7c-4 3.1-8.5 5.4-13.3 6.9L59.4 452l23-78.1c1.4-4.9 3.8-9.4 6.9-13.3l22.7-9.1v32c0 8.8 7.2 16 16 16h32zM362.7 18.7L348.3 33.2 325.7 55.8 314.3 67.1l33.9 33.9 62.1 62.1 33.9 33.9 11.3-11.3 22.6-22.6 14.5-14.5c25-25 25-65.5 0-90.5L453.3 18.7c-25-25-65.5-25-90.5 0zm-47.4 168l-144 144c-6.2 6.2-16.4 6.2-22.6 0s-6.2-16.4 0-22.6l144-144c6.2-6.2 16.4-6.2 22.6 0s6.2 16.4 0 22.6z"
+            ></path>
+          </svg>
+        </button>
+        <!-- Delete Button -->
+        <button class="delete-button" (click)="deleteTask(task.id)">
+          <svg class="delete-svgIcon" viewBox="0 0 448 512">
+            <path
+              d="M135.2 17.7L128 32H32C14.3 32 0 46.3 0 64S14.3 96 32 96H416c17.7 0 32-14.3 32-32s-14.3-32-32-32H320l-7.2-14.3C307.4 6.8 296.3 0 284.2 0H163.8c-12.1 0-23.2 6.8-28.6 17.7zM416 128H32L53.2 467c1.6 25.3 22.6 45 47.9 45H346.9c25.3 0 46.3-19.7 47.9-45L416 128z"
+            ></path>
+          </svg>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
